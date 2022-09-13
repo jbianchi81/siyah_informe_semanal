@@ -1,0 +1,13 @@
+id,nombre
+osci.desc,Oscilaciones poco significativas en descenso
+osci.ldesc,Oscilaciones con tendencia levemente descendente
+osci,Oscilante
+ldesc,Leve descenso
+ldesc.pbaja,"Leve descenso, próximo a aguas bajas"
+desc,Descenso
+fdesc.baja,"Fase de descenso, en rango de aguas bajas"
+ldesc.baja,"Leve descenso, en rango de aguas bajas"
+osci.baja,"Oscilante, en rango de aguas bajas"
+lasc.baja,"Leve ascenso, en rango de aguas bajas"
+osci.desc.media,"En descenso, oscilante en aguas medias"
+osci.media,"Oscilante, en rango de aguas medias"

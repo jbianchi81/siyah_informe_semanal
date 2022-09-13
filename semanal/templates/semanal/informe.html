@@ -1,0 +1,28 @@
+<h1>{{ informe.fecha }}</h1>
+<table>
+    <tr>
+        <th>actualizado</th>
+        <th>region</th>
+        <th>texto</th>
+        <th>acción</th>
+    </tr>
+    <tr>
+        <td>{{ informe.fecha }}</td>
+        <td>General</td>
+        <td>{{informe.texto_general}}</td>
+        <td>editar</td>
+    </tr>
+{% if informe.contenido_set.count %}
+    {% for contenido in informe.contenido_set.all %}
+        <tr>
+            <td>{{contenido.fecha_actualizado}}</td>
+            <td>{{contenido.region_id}}</td>
+            <td>{{contenido.texto}}</td>
+            <td><a href="{% url 'semanal:contenido' contenido.fecha contenido.region_id %}">editar</a></a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    </table>
+    <p>No se encontró contenido.</p>
+{% endif %}

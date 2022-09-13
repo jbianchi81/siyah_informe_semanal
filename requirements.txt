@@ -1,0 +1,11 @@
+django
+psycopg2
+django-geojson
+jsonfield
+pandas
+django-postgres-extra
+django-jsonview
+django-import-export
+django-excel
+pyexcel-ods
+pyexcel-handsontable

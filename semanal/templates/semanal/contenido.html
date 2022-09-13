@@ -1,0 +1,11 @@
+<h1>{{ contenido.fecha }}</h1>
+<form action="{% url 'semanal:contenido' contenido.fecha contenido.region_id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ contenido.region_id }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <textarea name="texto" rows="10" cols="128">{{ contenido.texto }}</textarea>
+        <input type="date" name="fecha_actualizado" value="{{ contenido.fecha_actualizado_iso }}" />
+    </fieldset>
+    <input type="submit" value="Actualizar">
+</form>

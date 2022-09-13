@@ -1,0 +1,38 @@
+id,nombre,estacion_id,region_id,tramo_id
+guaira,Guaíra Afluente,91,parana_alto,
+itaipu,Itaipú Efluente,92,parana_alto,
+andresito,Puerto Andresito,8,iguazu,
+confluencia,Confluencia Paraná/Iguazú,93,parana_medio,
+yacy_afl,Yacyretá afluente,87,parana_medio,
+yacy_efl,Yacyretá efluente,88,parana_medio,
+iguazu,Puerto Iguazú,9,parana_medio,
+ladario,Ladario Brasil,159,paraguay,paraguay_alto
+coimbra,Coimbra Brasil,5909,paraguay,paraguay_alto
+bneg,Bahía Negra Paraguay,153,paraguay,paraguay_medio
+murt,Pto. Murtinho Brasil,161,paraguay,paraguay_medio
+conc,Pto. Concepción Paraguay,155,paraguay,paraguay_medio
+pilc,Pto. Pilcomayo,55,paraguay,paraguay_bajo
+form,Pto. Formosa,57,paraguay,paraguay_bajo
+corr,Corrientes,19,parana_bajo,parana_bajo
+barr,Barranqueras,20,parana_bajo,parana_bajo
+goya,Goya,23,parana_bajo,parana_bajo
+lpaz,La Paz,26,parana_bajo,parana_bajo
+safe,Santa Fe,30,parana_bajo,parana_bajo
+rosa,Rosario,34,parana_bajo,parana_delta
+sjav,San Javier,65,uruguay,uruguay_medio
+stom,Santo Tomé,68,uruguay,uruguay_medio
+plib,Paso de los Libres,72,uruguay,uruguay_medio
+concordia,Concordia,79,uruguay,uruguay_bajo
+curu,Concepción del Uruguay,81,uruguay,uruguay_bajo
+gchu,Gualeguaychú,83,uruguay,uruguay_bajo
+slor,San Lorenzo,33,parana_bajo,parana_delta
+diam,Diamante,31,parana_bajo,parana_delta
+vict,Victoria,32,parana_bajo,parana_delta
+snic,San Nicolás,36,parana_bajo,parana_delta
+rama,Ramallo,37,parana_bajo,parana_delta
+sped,San Pedro,38,parana_bajo,parana_delta
+bara,Baradero,39,parana_bajo,parana_delta
+zara,Zárate,40,parana_bajo,parana_delta
+pcit,Paranacito,43,parana_bajo,parana_delta
+ibic,Ibicuy,45,parana_bajo,parana_delta
+ruiz,Pto. Ruiz,46,parana_bajo,parana_delta

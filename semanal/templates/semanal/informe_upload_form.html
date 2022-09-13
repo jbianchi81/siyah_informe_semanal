@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    <h2>Informe semanal</h2>
+    <hr></hr>
+    <h1>{{header}}</h1>
+
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" enctype="multipart/form-data"  method="post">
+        <table>
+            {{ form.as_table }}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+    <hr></hr>
+    <ul>
+        <li>
+            <a href="{% url 'semanal:index' %}">Home informe semanal</a></li>
+        </li>
+        <li>
+            <a href="/admin">Admin</a></li>
+        </li>
+        <li>
+            <a href="/admin/logout">Logout</a></li>
+        </li>
+    </ul>
+</body>
+</html>
