@@ -257,8 +257,15 @@ class ImportInformeView(View):
         # row[1] = seccion
         variable = Variable.objects.filter(id=row[1])[0]
         # row[2] = variable
-        tendencia = Tendencia.objects.filter(id=row[8])[0] if row[8] is not None else None
-        row[8] = tendencia
+        if row[8]:
+            tendencia_match = Tendencia.objects.filter(id=row[8])
+            if(len(tendencia_match)):
+                row[8] = tendencia_match[0]
+            else:
+                Warning("Tendencia %s not found" % row[8])
+                row[8] = None
+        else:
+            row[8] = None
         dato = Dato.objects.filter(fecha=informe,seccion=seccion,variable=variable)
         if len(dato):
             dato = dato[0]

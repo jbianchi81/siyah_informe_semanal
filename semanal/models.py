@@ -283,11 +283,11 @@ class Dato(PostgresModel):
             "mean_prono": self.mean_prono,
             "max_prono": self.max_prono,
             "tendencia": self.tendencia.nombre,
-            "tendencia_id": self.tendencia.id,
+            "tendencia_id": self.tendencia.id if self.tendencia is not None else None,
             "fecha_actualizado": self.fecha_actualizado.isoformat() if self.fecha_actualizado is not None else None
         }
     def to_list(self):
-        dato_list = [self.seccion.id, self.variable.id, self.min_obs, self.mean_obs, self.max_obs, self.min_prono, self.mean_prono, self.max_prono,self.tendencia.id, self.fecha_actualizado]
+        dato_list = [self.seccion.id, self.variable.id, self.min_obs, self.mean_obs, self.max_obs, self.min_prono, self.mean_prono, self.max_prono,self.tendencia.id if self.tendencia is not None else None, self.fecha_actualizado]
         return dato_list
     @staticmethod
     def get_header():
