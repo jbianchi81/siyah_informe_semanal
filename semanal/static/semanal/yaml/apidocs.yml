@@ -1,0 +1,216 @@
+openapi: 3.0.0
+info:
+  title: "API de contenido para web de informes de SSIyAH"
+  description: "La API expone el contenido (texto y datos para tablas), en formato json, para insertar en la nueva página web del SSIyAH. La información contenida equivale a la de un informe semanal. No se incluyen imágenes (las mismas tendrán URLs fijas)."
+  version: 0.0.0
+servers:
+  - url: "/"
+paths:
+  "/semanal/api/informe":
+    get:
+      summary: Provee el contenido completo del último informe de actualización semanal
+      responses:
+        200:
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Informe_semanal"
+  "/semanal/api/informes/{fecha}":
+    get:
+      summary: Provee el informe emitido en la fecha indicada
+      parameters:
+        - name: fecha
+          in: path
+          description: fecha de emisión
+          required: true
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Informe_semanal"
+  "/semanal/api/regiones":
+    get:
+      summary: Provee el mapa de las regiones en format geoJSON
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "https://geojson.org/schema/FeatureCollection.json"
+  "/semanal/api/regiones/{region_id}":
+    get:
+      summary: Provee el mapa de la región indicada en format geoJSON
+      parameters:
+        - name: region_id
+          in: path
+          description: identificador de la región
+          required: true
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "http://geojson.org/schema/Feature.json"
+  "/semanal/api/tramos":
+    get:
+      summary: Provee el mapa de los tramos en format geoJSON
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "https://geojson.org/schema/FeatureCollection.json"
+  "/semanal/api/tramos/{tramo_id}":
+    get:
+      summary: Provee el mapa del tramo indicado en format geoJSON
+      parameters:
+        - name: tramo_id
+          in: path
+          description: identificador del tramo
+          required: true
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "http://geojson.org/schema/Feature.json"
+  "/semanal/api/secciones":
+    get:
+      summary: Provee el mapa de las secciones en format geoJSON
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "https://geojson.org/schema/FeatureCollection.json"
+  "/semanal/api/secciones/{seccion_id}":
+    get:
+      summary: Provee el mapa de la sección indicada en format geoJSON
+      parameters:
+        - name: seccion_id
+          in: path
+          description: identificador de la seccion
+          required: true
+      responses:
+        200: 
+          description: Archivo JSON
+          content:
+            application/json:
+              schema:
+                $ref: "http://geojson.org/schema/Feature.json"
+components:
+  schemas:
+    Informe_semanal:
+      type: object
+      required: [fecha, texto_general, contenido]
+      properties:
+        fecha:
+          type: string
+          description: fecha de emisión en formato YYYY-MM-DD
+        texto_general:
+          type: string
+          description: Texto descriptivo de la situación hídrica general de la cuenca del Plata con énfasis en lo meteorológico
+        contenido:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contenido"
+          description: Listado que contiene un elemento por cada región de la cuenca
+    Contenido:
+      type: object
+      required: [region_id,texto]
+      properties:
+        region_id:
+          type: string
+          description: identificador de la región
+        region:
+          type: string
+          description: nombre de la region
+        texto:
+          type: string
+          description: texto descriptivo de la situación hídrica de la región
+        fecha_actualizado:
+          type: string
+          description: fecha de actualización
+        tramos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contenido_tramo"             # (opcional) listado de que contiene un elemento por tramo de la región
+        datos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dato"
+    Contenido_tramo:
+      type: object
+      required: [tramo_id,texto]
+      properties:
+        tramo_id:
+          type: string
+          description: identificador de tramo
+        tramo:
+          type: string
+          description: nombre del tramo
+        texto:
+          type: string
+          description: texto descriptivo de la situación hídrica del tramo
+        datos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dato"
+          description: "Lista. datos para generar tabla de valores observados y pronosticados"
+    Dato:
+      type: object
+      required: [seccion_id,variable_id]
+      properties:
+        seccion:
+          type: string
+          description: nombre de la sección hidrológica
+        seccion_id:
+          type: string
+          description: identificador de sección hidrológica
+        estacion_id:
+          type: integer
+          description: identificador de la estación
+        variable:
+          type: string
+          description: nombre de la variable observada/pronosticada (altura hidrométrica o caudal)
+        variable_id:
+          type: string
+          description: identificador de la variable
+        units:
+          type: string
+          description: unidades
+        min_obs:
+          type: number
+          description: valor mínimo observado
+        mean_obs:
+          type: number
+          description: valor medio observado
+        max_obs:
+          type: number
+          description: valor máximo observado
+        min_prono:
+          type: number
+          description: valor mínimo pronisticado 
+        mean_prono: 
+          type: number
+          description: valor medio pronisticado 
+        max_prono: 
+          type: number
+          description: valor máximo pronisticado 
+        tendencia: 
+          type: string
+          description: texto descriptivo de la tendencia de la variable en esta sección
+        tendencia_id: 
+          type: string
+          description: identificador de la tendencia
+        fecha_actualizado: 
+          type: string
+          description: fecha de actualización en formato YYYY-MM-DD
