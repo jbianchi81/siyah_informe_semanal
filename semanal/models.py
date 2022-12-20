@@ -4,6 +4,7 @@ from djgeojson.fields import GeometryField
 from psqlextra.models import PostgresModel
 from datetime import date
 from django.contrib import admin
+from collections import OrderedDict
 
 class Region(PostgresModel):
     id = models.CharField(max_length=200,primary_key=True)
@@ -117,19 +118,18 @@ class Informe(PostgresModel):
     def get_header():
         return ["fecha","texto_general","revisado"]
     def to_bookdict(self, headers=True):
+        bookdict = OrderedDict()
         if headers:
-            return {
-                "informe": [self.get_header(), self.to_list()],
-                "contenido": [Contenido.get_header()]  + [contenido.to_list() for contenido in self.contenido_set.all()],
-                "contenidotramo": [ContenidoTramo.get_header()] + [contenidotramo.to_list() for contenidotramo in self.contenidotramo_set.all()],
-                "dato": [Dato.get_header()] + [dato.to_list() for dato in self.dato_set.all()]
-            }
-        return {
-            "informe": [self.to_list()],
-            "contenido": [contenido.to_list() for contenido in self.contenido_set.all()],
-            "contenidotramo": [contenidotramo.to_list() for contenidotramo in self.contenidotramo_set.all()],
-            "dato": [dato.to_list() for dato in self.dato_set.all()]
-        }
+            bookdict["informe"] = [self.get_header(), self.to_list()]
+            bookdict["contenido"] = [Contenido.get_header()]  + [contenido.to_list() for contenido in self.contenido_set.all()]
+            bookdict["contenidotramo"] =  [ContenidoTramo.get_header()] + [contenidotramo.to_list() for contenidotramo in self.contenidotramo_set.all()]
+            bookdict["dato"] = [Dato.get_header()] + [dato.to_list() for dato in self.dato_set.all()]
+            return bookdict
+        bookdict["informe"] = [self.to_list()]
+        bookdict["contenido"] = [contenido.to_list() for contenido in self.contenido_set.all()]
+        bookdict["contenidotramo"] = [contenidotramo.to_list() for contenidotramo in self.contenidotramo_set.all()]
+        bookdict["dato"] = [dato.to_list() for dato in self.dato_set.all()]
+        return bookdict
 
     class Meta:
         ordering = ('-fecha',)
@@ -282,7 +282,7 @@ class Dato(PostgresModel):
             "min_prono": self.min_prono,
             "mean_prono": self.mean_prono,
             "max_prono": self.max_prono,
-            "tendencia": self.tendencia.nombre,
+            "tendencia": self.tendencia.nombre if self.tendencia is not None else None,
             "tendencia_id": self.tendencia.id if self.tendencia is not None else None,
             "fecha_actualizado": self.fecha_actualizado.isoformat() if self.fecha_actualizado is not None else None
         }

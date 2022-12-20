@@ -9,3 +9,5 @@ django-import-export
 django-excel
 pyexcel-ods
 pyexcel-handsontable
+psqlextra
+pyyaml
