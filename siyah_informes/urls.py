@@ -18,8 +18,8 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('semanal/', include('semanal.urls')),
-    path('admin/', admin.site.urls),
+    path('siyah_informes/semanal/', include('semanal.urls')),
+    path('siyah_informes/admin/', admin.site.urls),
     path('',views.redirect_view),
     path('denied', views.access_denied)
 ]
