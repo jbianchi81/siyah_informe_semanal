@@ -204,8 +204,19 @@ def api_informe(request,pk=None):
     informe_dict = informe.to_dict()
     # add png image url
     informe_dict["map_image_url"] = "%s/semanal/png/CDP.png" % settings["static_absolute_url"]
+    region_ids = []
     for region in informe_dict["contenido"]:
+        region_ids.append(region["region_id"])
         region["map_image_url"] = "%s/semanal/png/%s.png" % (settings["static_absolute_url"], region["region_id"])
+    regiones = get_list_or_404(Region)
+    # adding missing regions
+    for region in regiones:
+        if region.id not in region_ids:
+            informe_dict["contenido"].append({
+                "region_id": region.id,
+                "region": region.nombre,
+                "map_image_url": "%s/semanal/png/%s.png" % (settings["static_absolute_url"], region.id)
+            })
     return informe_dict
 
 # IMPORT XLS
