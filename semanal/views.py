@@ -11,6 +11,10 @@ from django import forms
 import django_excel as excel
 from django.contrib.auth.decorators import user_passes_test, login_required
 
+settings = {
+    "static_absolute_url": "https://alerta.ina.gob.ar/siyah_informes/static"
+}
+
 # FORMS
 
 
@@ -198,6 +202,10 @@ def api_informe(request,pk=None):
             raise Http404("Sintaxis inválida para fecha. Debe ser YYYY-MM-DD")
         informe = get_object_or_404(Informe,fecha=match.string)
     informe_dict = informe.to_dict()
+    # add png image url
+    informe_dict["map_image_url"] = "%s/semanal/png/CDP.png" % settings["static_absolute_url"]
+    for region in informe_dict["contenido"]:
+        region["map_image_url"] = "%s/semanal/png/%s.png" % (settings["static_absolute_url"], region["region_id"])
     return informe_dict
 
 # IMPORT XLS
