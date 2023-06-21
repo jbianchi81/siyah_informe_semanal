@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Informe, Contenido, ContenidoTramo, Dato, Tendencia, Region, Tramo, Seccion, Variable
+from .models import Informe, Contenido, ContenidoTramo, Dato, Tendencia, Region, Tramo, Seccion, Variable, MapaBase
 import copy
 from datetime import date
 from import_export import resources
@@ -155,3 +155,4 @@ admin.site.register(Contenido,ContenidoAdmin)
 admin.site.register(ContenidoTramo,ContenidoTramoAdmin)
 admin.site.register(Dato,DatoAdmin)
 admin.site.register(Variable,VariableAdmin)
+admin.site.register(MapaBase)
