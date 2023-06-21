@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseBadRequest
-from .models import Informe, Contenido, ContenidoTramo, Dato, Region, Tramo, Seccion, Variable, Tendencia
+from .models import Informe, Contenido, ContenidoTramo, Dato, Region, Tramo, Seccion, Variable, Tendencia, MapaBase
 from django.template import loader
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 from django.urls import reverse
@@ -218,6 +218,11 @@ def api_informe(request,pk=None):
                 "map_image_url": "%s/semanal/png/%s.png" % (settings["static_absolute_url"], region.id)
             })
     return informe_dict
+
+@json_view
+def api_mapas(request):
+    mapas = get_list_or_404(MapaBase)
+    return [mapa.to_dict() for mapa in mapas]
 
 # IMPORT XLS
 

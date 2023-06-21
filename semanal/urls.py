@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/informes/', views.api_informe, name="api_informe"),
     path('api/informes', views.api_informe, name="api_informe"),
     path('api/informe', views.api_informe, name="api_informe"),
+    path('api/mapas', views.api_mapas, name="api_mapas"),
     path('import/informe', views.ImportInformeView.as_view(), name="import_informe"),
     path('import/informe/handson_view', views.embed_informe_handson_table, name="informe_handson_view"),
     path('import/informe/handson_view/<str:pk>', views.informe_handson_table_view, name="informe_handson_table_view"),

@@ -296,3 +296,28 @@ class Dato(PostgresModel):
     class Meta:
         unique_together = ('fecha','seccion')
 #CREATE TABLE informe_semanal.datos (id serial primary key, fecha date references informe_semanal.informe(fecha) ON DELETE CASCADE NOT NULL, seccion varchar references informe_semanal.secciones(id) on delete cascade not null, variable varchar references informe_semanal.variables(id) on delete cascade not null, min_obs float, max_obs float, promedio_obs float, min_prono float, max_prono float, promedio_prono float, tendencia varchar references informe_semanal.tendencia(id) on delete cascade, unique (fecha,seccion));
+
+class MapaBase(PostgresModel):
+    orden = models.IntegerField(primary_key=True)
+    titulo = models.CharField(max_length=1000)
+    descripcion = models.CharField(max_length=20000)
+    href = models.URLField()
+
+    def __str__(self):
+        return "%s [%s] (%s): %s" % (str(self.orden), self.titulo, str(self.href), self.descripcion)
+    # def save(self, *args, **kwargs):
+    #     if self.fecha_actualizado is None:
+    #         self.fecha_actualizado = self.fecha.fecha
+    #     super(Dato, self).save(*args, **kwargs)
+    def to_dict(self):
+        return {
+            "orden": self.orden,
+            "titulo": self.titulo,
+            "descripcion": self.descripcion,
+            "href": self.href
+        }
+    def to_list(self):
+        return [self.orden, self.titulo, self.descripcion, self.href]
+    @staticmethod
+    def get_header():
+        return ["orden", "titulo", "descripcion", "href"]
